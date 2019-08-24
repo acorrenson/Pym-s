@@ -10,6 +10,12 @@ AUTHOR : Arthur Correnson
 import sys
 
 # EXEMPLE OF A GENERATED TYPE DEFINITION
+# SOURCE CODE :
+# 
+# typedef bintree =
+# 	| Node of int * bintree * bintree
+# 	| Leaf of int
+
 
 class BINTREE:
 	"""
@@ -28,7 +34,7 @@ class NODE(BINTREE):
 
 	def __init__(self, a : int, b : BINTREE, c : BINTREE):
 		# OPTIONAL DYNAMIC CHECK
-		assert (type(a) == int)
+		assert (isinstance(a, int))
 		assert (isinstance(b, BINTREE)) 
 		assert (isinstance(c, BINTREE))
 		# ----------------------
@@ -43,7 +49,7 @@ class LEAF(BINTREE):
 
 	def __init__(self, a : int):
 		# OPTIONAL DYNAMIC CHECK
-		assert (type(a) == int)
+		assert (isinstance(a, int))
 		# ----------------------
 		
 		self.a = a
