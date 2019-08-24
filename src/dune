@@ -1,0 +1,6 @@
+(ocamlyacc (modules parser))
+(ocamllex (modules lexer))
+
+(executable
+  (name main)
+  (modules ast parser lexer main))
