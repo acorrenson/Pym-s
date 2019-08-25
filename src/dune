@@ -3,4 +3,4 @@
 
 (executable
   (name main)
-  (modules ast parser lexer main))
+  (modules ast parser lexer ast_processor main))
