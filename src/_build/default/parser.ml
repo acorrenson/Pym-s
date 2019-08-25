@@ -5,17 +5,19 @@ type token =
   | TYPEDEF
   | PIPE
   | EQUAL
+  | EOF
 
 open Parsing;;
 let _ = parse_error;;
 # 7 "parser.mly"
   open Ast
-# 14 "parser.ml"
+# 15 "parser.ml"
 let yytransl_const = [|
   259 (* PRODUCT *);
   260 (* TYPEDEF *);
   261 (* PIPE *);
   262 (* EQUAL *);
+    0 (* EOF *);
     0|]
 
 let yytransl_block = [|
@@ -24,33 +26,33 @@ let yytransl_block = [|
     0|]
 
 let yylhs = "\255\255\
-\001\000\003\000\002\000\002\000\004\000\004\000\000\000"
+\001\000\002\000\002\000\003\000\004\000\004\000\000\000"
 
 let yylen = "\002\000\
-\004\000\002\000\001\000\002\000\001\000\002\000\002\000"
+\005\000\001\000\002\000\003\000\001\000\003\000\002\000"
 
 let yydefred = "\000\000\
-\000\000\000\000\000\000\007\000\000\000\000\000\000\000\001\000\
-\000\000\000\000\002\000\004\000\006\000"
+\000\000\000\000\000\000\007\000\000\000\000\000\000\000\000\000\
+\000\000\000\000\001\000\003\000\000\000\004\000\000\000\006\000"
 
 let yydgoto = "\002\000\
-\004\000\008\000\009\000\011\000"
+\004\000\008\000\009\000\014\000"
 
 let yysindex = "\255\255\
-\254\254\000\000\001\255\000\000\255\254\002\255\005\255\000\000\
-\002\255\005\255\000\000\000\000\000\000"
+\254\254\000\000\001\255\000\000\255\254\002\255\004\255\004\000\
+\002\255\007\255\000\000\000\000\006\255\000\000\007\255\000\000"
 
 let yyrindex = "\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\007\000\001\000\000\000\000\000\000\000"
+\010\000\000\000\000\000\000\000\001\000\000\000\000\000\000\000"
 
 let yygindex = "\000\000\
-\000\000\002\000\000\000\254\255"
+\000\000\002\000\000\000\253\255"
 
-let yytablesize = 259
+let yytablesize = 262
 let yytable = "\001\000\
-\005\000\003\000\005\000\007\000\006\000\010\000\003\000\013\000\
-\000\000\000\000\012\000\000\000\000\000\000\000\000\000\000\000\
+\005\000\003\000\005\000\011\000\006\000\010\000\007\000\013\000\
+\015\000\002\000\012\000\016\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
@@ -81,11 +83,11 @@ let yytable = "\001\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\000\000\000\000\005\000"
+\000\000\000\000\000\000\000\000\000\000\005\000"
 
 let yycheck = "\001\000\
-\000\000\004\001\002\001\002\001\006\001\001\001\000\000\010\000\
-\255\255\255\255\009\000\255\255\255\255\255\255\255\255\255\255\
+\000\000\004\001\002\001\000\000\006\001\002\001\005\001\001\001\
+\003\001\000\000\009\000\015\000\255\255\255\255\255\255\255\255\
 \255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\
 \255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\
 \255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\
@@ -116,13 +118,14 @@ let yycheck = "\001\000\
 \255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\
 \255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\
 \255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\255\
-\255\255\255\255\002\001"
+\255\255\255\255\255\255\255\255\255\255\005\001"
 
 let yynames_const = "\
   PRODUCT\000\
   TYPEDEF\000\
   PIPE\000\
   EQUAL\000\
+  EOF\000\
   "
 
 let yynames_block = "\
@@ -133,50 +136,50 @@ let yynames_block = "\
 let yyact = [|
   (fun _ -> failwith "parser")
 ; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 2 : string) in
-    let _4 = (Parsing.peek_val __caml_parser_env 0 : 'typecontent) in
+    let _2 = (Parsing.peek_val __caml_parser_env 3 : string) in
+    let _4 = (Parsing.peek_val __caml_parser_env 1 : 'typecontent) in
     Obj.repr(
-# 21 "parser.mly"
-                                      ( Typedef (_2, _4) )
-# 142 "parser.ml"
+# 22 "parser.mly"
+                                        ( Typedef (_2, _4) )
+# 145 "parser.ml"
                : Ast.ast))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : string) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : 'product) in
-    Obj.repr(
-# 25 "parser.mly"
-                         ( Constructor (_1, _2) )
-# 150 "parser.ml"
-               : 'constructor))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : 'constructor) in
     Obj.repr(
-# 29 "parser.mly"
+# 27 "parser.mly"
                               ( [_1] )
-# 157 "parser.ml"
+# 152 "parser.ml"
                : 'typecontent))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 1 : 'constructor) in
     let _2 = (Parsing.peek_val __caml_parser_env 0 : 'typecontent) in
     Obj.repr(
-# 30 "parser.mly"
+# 28 "parser.mly"
                               ( [_1] @ _2 )
-# 165 "parser.ml"
+# 160 "parser.ml"
                : 'typecontent))
+; (fun __caml_parser_env ->
+    let _2 = (Parsing.peek_val __caml_parser_env 1 : string) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : 'product) in
+    Obj.repr(
+# 33 "parser.mly"
+                              ( Constructor (_2, _3) )
+# 168 "parser.ml"
+               : 'constructor))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
     Obj.repr(
-# 34 "parser.mly"
+# 38 "parser.mly"
                               ( [_1] )
-# 172 "parser.ml"
+# 175 "parser.ml"
                : 'product))
 ; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : string) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : 'product) in
+    let _1 = (Parsing.peek_val __caml_parser_env 2 : string) in
+    let _3 = (Parsing.peek_val __caml_parser_env 0 : 'product) in
     Obj.repr(
-# 35 "parser.mly"
-                              ( [_1] @ _2 )
-# 180 "parser.ml"
+# 39 "parser.mly"
+                              ( [_1] @ _3 )
+# 183 "parser.ml"
                : 'product))
 (* Entry main *)
 ; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))

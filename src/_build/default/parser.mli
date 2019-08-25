@@ -5,6 +5,7 @@ type token =
   | TYPEDEF
   | PIPE
   | EQUAL
+  | EOF
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Ast.ast

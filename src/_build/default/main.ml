@@ -3,13 +3,15 @@
 (* AUTHOR : ARTHUR CORRENSON *)
 (* ========================= *)
 
+open Ast
+
 let _ =
   try
-    print_string "> "; flush stdout;
-    let lexbuf = Lexing.from_channel stdin in
+    let lexbuf = Lexing.from_string "typedef a = | Int int * float" in
     while true do
-      let _ = Parser.main Lexer.token lexbuf in
-      print_endline "...";
+      let ast = Parser.main Lexer.token lexbuf in
+      pp ast; flush stdout
     done
-  with Lexer.Eof ->
+  with _ ->
+    print_endline "STOP";
     exit 0

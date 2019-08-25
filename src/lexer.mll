@@ -5,7 +5,6 @@
 
 {
   open Parser
-  exception Eof
 }
 
 rule token = parse
@@ -24,4 +23,4 @@ rule token = parse
 | '|'
   { PIPE }
 | eof
-  { raise Eof}
+  { EOF }

@@ -1,8 +1,4 @@
 # dune build main.exe
 # OCAMLPARAM: unset
-$ /usr/bin/getconf _NPROCESSORS_ONLN > /var/folders/vt/lt357z2s483cp146j8jhw8pr0000gn/T/dune41155f.output 2> /dev/null
-$ /Users/arthur/.opam/ocaml-base-compiler.4.07.1/bin/ocamlc.opt -config > /var/folders/vt/lt357z2s483cp146j8jhw8pr0000gn/T/dune110e46.output
-$ (cd _build/default && /Users/arthur/.opam/ocaml-base-compiler.4.07.1/bin/ocamlyacc parser.mly)
-$ (cd _build/default && /Users/arthur/.opam/ocaml-base-compiler.4.07.1/bin/ocamldep.opt -modules -impl parser.ml) > _build/default/.main.eobjs/parser.ml.d
-$ (cd _build/default && /Users/arthur/.opam/ocaml-base-compiler.4.07.1/bin/ocamlopt.opt -w @a-4-29-40-41-42-44-45-48-58-59-60-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o .main.eobjs/native/parser.cmx -c -impl parser.ml)
-$ (cd _build/default && /Users/arthur/.opam/ocaml-base-compiler.4.07.1/bin/ocamlopt.opt -w @a-4-29-40-41-42-44-45-48-58-59-60-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o main.exe .main.eobjs/native/ast.cmx .main.eobjs/native/parser.cmx .main.eobjs/native/lexer.cmx .main.eobjs/native/main.cmx)
+$ /usr/bin/getconf _NPROCESSORS_ONLN > /var/folders/vt/lt357z2s483cp146j8jhw8pr0000gn/T/dunee40f9e.output 2> /dev/null
+$ /Users/arthur/.opam/ocaml-base-compiler.4.07.1/bin/ocamlc.opt -config > /var/folders/vt/lt357z2s483cp146j8jhw8pr0000gn/T/dune0bb2e2.output

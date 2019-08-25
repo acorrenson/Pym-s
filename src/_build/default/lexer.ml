@@ -1,9 +1,8 @@
 # 6 "lexer.mll"
  
   open Parser
-  exception Eof
 
-# 7 "lexer.ml"
+# 6 "lexer.ml"
 let __ocaml_lex_tables = {
   Lexing.lex_base =
    "\000\000\248\255\249\255\250\255\251\255\078\000\160\000\238\000\
@@ -575,44 +574,44 @@ let rec token lexbuf =
 and __ocaml_lex_token_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 13 "lexer.mll"
+# 12 "lexer.mll"
     ( token lexbuf )
-# 581 "lexer.ml"
+# 580 "lexer.ml"
 
   | 1 ->
-# 15 "lexer.mll"
+# 14 "lexer.mll"
   ( TYPENAME (Lexing.lexeme lexbuf) )
-# 586 "lexer.ml"
+# 585 "lexer.ml"
 
   | 2 ->
-# 17 "lexer.mll"
+# 16 "lexer.mll"
   ( TYPEDEF )
-# 591 "lexer.ml"
+# 590 "lexer.ml"
 
   | 3 ->
-# 19 "lexer.mll"
+# 18 "lexer.mll"
   ( SYMBOL (Lexing.lexeme lexbuf) )
-# 596 "lexer.ml"
+# 595 "lexer.ml"
 
   | 4 ->
-# 21 "lexer.mll"
+# 20 "lexer.mll"
   ( PRODUCT )
-# 601 "lexer.ml"
+# 600 "lexer.ml"
 
   | 5 ->
-# 23 "lexer.mll"
+# 22 "lexer.mll"
   ( EQUAL )
-# 606 "lexer.ml"
+# 605 "lexer.ml"
 
   | 6 ->
-# 25 "lexer.mll"
+# 24 "lexer.mll"
   ( PIPE )
-# 611 "lexer.ml"
+# 610 "lexer.ml"
 
   | 7 ->
-# 27 "lexer.mll"
-  ( raise Eof)
-# 616 "lexer.ml"
+# 26 "lexer.mll"
+  ( EOF )
+# 615 "lexer.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_token_rec lexbuf __ocaml_lex_state

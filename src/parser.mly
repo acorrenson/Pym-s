@@ -13,24 +13,28 @@
 %token TYPEDEF
 %token PIPE
 %token EQUAL
+%token EOF
 %start main
 %type <Ast.ast> main
 %%
 
 main:
-  TYPEDEF SYMBOL EQUAL typecontent    { Typedef ($2, $4) }
+  TYPEDEF SYMBOL EQUAL typecontent EOF  { Typedef ($2, $4) }
 ;
 
-constructor:
-  | SYMBOL product       { Constructor ($1, $2) }
-;
 
 typecontent:
   | constructor               { [$1] }
   | constructor typecontent   { [$1] @ $2 }
 ;
 
+
+constructor:
+  | PIPE SYMBOL product       { Constructor ($2, $3) }
+;
+
+
 product:
   | TYPENAME                  { [$1] }
-  | TYPENAME product          { [$1] @ $2 }
+  | TYPENAME PRODUCT product  { [$1] @ $3 }
 ;
