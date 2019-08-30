@@ -9,7 +9,8 @@
 
 %token <string> TYPENAME
 %token <string> SYMBOL
-%token PRODUCT
+%token STAR
+%token OF
 %token TYPEDEF
 %token PIPE
 %token EQUAL
@@ -30,11 +31,12 @@ typecontent:
 
 
 constructor:
-  | PIPE SYMBOL product       { Constructor ($2, $3) }
+  | PIPE SYMBOL OF product        { Constructor ($2, $4) }
+  | PIPE SYMBOL                   { Constructor ($2, []) }
 ;
 
 
 product:
   | TYPENAME                  { [$1] }
-  | TYPENAME PRODUCT product  { [$1] @ $3 }
+  | TYPENAME STAR product  { [$1] @ $3 }
 ;
