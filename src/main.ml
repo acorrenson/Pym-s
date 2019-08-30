@@ -55,7 +55,7 @@ let process_file outx fname =
   parse_with_error outx lexbuf
 
 
-(* process the input file with error/debug informations *)
+(** process the input file with error/debug informations *)
 let process_file_with_error input_file output_file =
 
   (* resolve input/ouput names *)
@@ -104,8 +104,7 @@ let output_file = ref ""
 let _ =
   let speclist = [
     ("-i", Arg.Set_string input_file, "input file");
-    ("-o", Arg.Unit not_implemented,
-      "output file [ not implemented ]");
+    ("-o", Arg.Set_string output_file, "output file");
     ("-d", Arg.Unit not_implemented,
       "generate dynamic type check [ not implemented ]");
     ("-v", Arg.Unit (fun () -> print_endline "Pyms v0.2"; exit 0),
