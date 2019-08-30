@@ -22,10 +22,10 @@ let print_position outx lexbuf =
 
 
 (** Parse with error/debug informations *)
-let parse_with_error lexbuf =
+let parse_with_error outx lexbuf =
   try 
     let ast = Parser.main Lexer.token lexbuf in
-    write_classes ast; flush stdout
+    write_classes outx ast; flush stdout
   with
     | Parsing.Parse_error ->
       fprintf stderr "[ PARSING ERROR @ %a]\n" print_position lexbuf;
@@ -43,7 +43,7 @@ let resolve fname =
 
 
 (** Process the input file *)
-let process_file fname =
+let process_file outx fname =
   fprintf stderr "Pyms-s running on [ %s ]\n\n" fname;
   flush stderr;  
   
@@ -52,15 +52,15 @@ let process_file fname =
   lexbuf.lex_curr_p <- { lexbuf.lex_curr_p with
     pos_fname = (basename fname) };
   
-  parse_with_error lexbuf
+  parse_with_error outx lexbuf
 
 
 (* process the input file with error/debug informations *)
-let process_file_with_error fname = 
+let process_file_with_error outx fname = 
   let full_name = resolve fname in
   if file_exists full_name then (
     if check_suffix full_name "pyms" then
-      process_file full_name
+      process_file outx full_name
     else (
       fprintf stderr "[ INPUT ERROR - input files should have .pyms extension\n";
       exit 1
@@ -87,4 +87,4 @@ let _ =
     ("-v", Arg.Unit (fun () -> print_endline "Pyms v0.2"),
       "print the current version")
   ] in
-  Arg.parse speclist (process_file_with_error) "pyms file.pyms [options]"
+  Arg.parse speclist (process_file_with_error stdout) "pyms file.pyms [options]"
