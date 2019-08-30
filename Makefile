@@ -3,7 +3,10 @@ build:
 	@ dune build @install
 
 run:
-	@ ./src/_build/default/main.exe test.pyms
+	@ echo "transpiling input ..."
+	@ ./_build/default/main.exe -i ./examples/bintree.pyms
+	@ echo "interpreting python output ..."
+	@ python3 ./examples/main.py
 
 install:
 	@ dune install Pyms
