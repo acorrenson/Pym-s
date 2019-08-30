@@ -12,7 +12,7 @@ authors: "ARTHUR CORRENSON arthur.correnson@univ-tlse3.fr"
 license: "MIT"
 homepage: "https://github.com/jdrprod/Pym-s"
 bug-reports: "https://github.com/jdrprod/Pym-s/issues"
-dev-repo: "git+https://github.com/jdrprod/Pym-s.git#master"
+dev-repo: "git+https://github.com/jdrprod/Pym-s.git"
 depends: [ "ocaml" "ocamlfind" "dune"]
 build: [
   [make "build"]
