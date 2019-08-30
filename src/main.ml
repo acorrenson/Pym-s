@@ -45,6 +45,7 @@ let resolve fname =
 (** Process the input file *)
 let process_file fname =
   fprintf stderr "Pyms-s running on [ %s ]\n\n" fname;
+  flush stderr;  
   
   let lexbuf = Lexing.from_channel (open_in fname) in
     
@@ -57,19 +58,33 @@ let process_file fname =
 (* process the input file with error/debug informations *)
 let process_file_with_error fname = 
   let full_name = resolve fname in
-  if file_exists full_name then begin 
+  if file_exists full_name then (
     if check_suffix full_name "pyms" then
       process_file full_name
-    else failwith "[ ERROR - input files should have .pyms extension\n" end
-  else
+    else (
+      fprintf stderr "[ INPUT ERROR - input files should have .pyms extension\n";
+      exit 1
+    )
+  ) else (
     fprintf stderr "[ INPUT ERROR - file %s does'nt exist ]\n" fname;
     exit 1
+  )
 
 
 (* =============================================== *)
 (* COMMAND LINE INTERFACE SETUP                    *)
 (* =============================================== *)
 
+let not_implemented () =
+  fprintf stderr "OPTION NOT IMPLEMENTED\n"; exit 1
+
 let _ =
-  let speclist = [] in
+  let speclist = [
+    ("-o", Arg.Unit not_implemented,
+      "output file [ not implemented ]");
+    ("-d", Arg.Unit not_implemented,
+      "generate dynamic type check [ not implemented ]");
+    ("-v", Arg.Unit (fun () -> print_endline "Pyms v0.2"),
+      "print the current version")
+  ] in
   Arg.parse speclist (process_file_with_error) "pyms file.pyms [options]"
