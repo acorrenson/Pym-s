@@ -44,7 +44,7 @@ let resolve fname =
 
 (** Process the input file *)
 let process_file fname =
-  printf "Pyms-s running on [ %s ]\n\n" fname;
+  fprintf stderr "Pyms-s running on [ %s ]\n\n" fname;
   
   let lexbuf = Lexing.from_channel (open_in fname) in
     

@@ -36,7 +36,7 @@ let init product =
   in
 
   let arg_n   i t = printf ", arg_%d : %s " i t in
-  let field_n i _ = printf "%sfield_%d = arg_%d\n" (tab 8) i i in
+  let field_n i _ = printf "%sself.field_%d = arg_%d\n" (tab 8) i i in
   
   (* write TYPE informations  *)
   step_fields product 0;
@@ -44,7 +44,7 @@ let init product =
   printf "%sdef __init__(self" (tab 4);
   
   List.iteri arg_n    product;
-  printf ")\n";
+  printf "):\n";
   List.iteri field_n  product;
   
   (* empty constructor *)

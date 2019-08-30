@@ -1,0 +1,3 @@
+typedef binary_tree =
+  | Node of int * binary_tree * binary_tree
+  | Leaf of int

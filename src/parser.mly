@@ -38,5 +38,7 @@ constructor:
 
 product:
   | TYPENAME                  { [$1] }
-  | TYPENAME STAR product  { [$1] @ $3 }
+  | SYMBOL                    { [$1] }
+  | TYPENAME STAR product     { [$1] @ $3 }
+  | SYMBOL STAR product       { [$1] @ $3 }
 ;
