@@ -1,5 +1,0 @@
-typedef montype = 
-  | F of float * int
-  | G of float
-
-

@@ -48,11 +48,35 @@ print(count_leafs(Node(0, Leaf(1), Leaf(2))))
 The preceding exemple need to be compiled down to pure python prior to execution :
 
 ```
-$ pyms bintree.pyms 1> bintree.py
-$ python main.py
+$ pyms -i bintree.pyms -o bintree.py
+$ python3 main.py
 ```
 
 # Focus on the generated code
 
 Pyms generated python code is annoted according to the [PEP 484](https://www.python.org/dev/peps/pep-0484/). It makes generated code well suited for use with python linter or type checker such as [pyre](https://pyre-check.org/). Future versions of Pym-s will also include an option to generate dynamic type assertions.
 
+# Install
+
+Installing Pyms requires opam and a working ocaml environnement. While waiting for Pyms to be published on Opam, it is still possible to install it easily.
+
+To install ocaml and opam, please visit [this link](https://ocaml.org/docs/install.html)
+
+
+## If you just have opam installed :
+
+```
+git clone git@github.com:jdrprod/Pym-s.git
+cd Pym-s
+opam pin .
+opam install .
+```
+
+## If you already use dune :
+
+```
+git clone git@github.com:jdrprod/Pym-s.git
+cd Pym-s
+dune build @install
+dune install
+```
