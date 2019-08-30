@@ -1,0 +1,12 @@
+lib: [
+  "_build/install/default/lib/Pyms/META"
+  "_build/install/default/lib/Pyms/dune-package"
+  "_build/install/default/lib/Pyms/opam"
+]
+bin: [
+  "_build/install/default/bin/pyms"
+]
+doc: [
+  "_build/install/default/doc/Pyms/LICENSE"
+  "_build/install/default/doc/Pyms/README.md"
+]

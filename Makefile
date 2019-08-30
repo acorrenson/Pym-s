@@ -1,12 +1,12 @@
 
 build:
-	@ cd src ; dune build main.exe
+	@ dune build @install
 
 run:
 	@ ./src/_build/default/main.exe test.pyms
 
 install:
-	@ cd src ; dune install pyms
+	@ dune install Pyms
 
 clean:
 	@ rm -rf ./src/*.cmi ./src/*.cmo
