@@ -1,6 +1,6 @@
 opam-version: "2.0"
-name: "project"
-version: "0.1"
+name: "Pyms"
+version: "0.2"
 synopsis: "OCaml typedefinition to python3 transpiler"
 description: """
 Pyms is a transpiler. It produces clean and reliable python modules from OCaml type definitions.
