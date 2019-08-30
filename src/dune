@@ -3,4 +3,5 @@
 
 (executable
   (name main)
+  (public pyms)
   (modules ast parser lexer ast_processor main))
