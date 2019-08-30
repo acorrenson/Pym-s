@@ -72,4 +72,4 @@ let process_file_with_error fname =
 
 let _ =
   let speclist = [] in
-  Arg.parse speclist (process_file) "pyms file.pyms [options]"
+  Arg.parse speclist (process_file_with_error) "pyms file.pyms [options]"
