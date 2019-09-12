@@ -81,8 +81,7 @@ let rec write_sub_classes outx parent constructors =
     write_sub_class outx parent name product;
     fprintf outx "\n";
     write_sub_classes outx parent rest;
-    flush outx 
-  | _ -> failwith "ERROR - SUBCLASSES ARE CREATED ONLY FROM CUSTOM CONSTRUCTORS"
+    flush outx
 
 and write_sub_class outx parent name product =
   pclass outx ~extends:parent name; init outx product
@@ -112,6 +111,4 @@ let write_classes outx typedef_list =
       fprintf outx "\n";
       write_sub_classes outx name constructors;
       flush outx
-    | _ ->
-      failwith "ERROR - CLASS ARE CREATED ONLY FROM TYPEDEF"
   ) typedef_list

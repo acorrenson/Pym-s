@@ -31,7 +31,7 @@
 %token EQUAL
 %token EOF
 %start main
-%type <Ast.ast list> main
+%type <Ast.typedef list> main
 %%
 
 /* Structure of a Pyms file */
