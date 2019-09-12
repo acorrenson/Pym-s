@@ -46,12 +46,12 @@ let init outx product =
     match remaining_fields with
     | []  -> ()
     | typename::rest ->
-      fprintf outx "%sfield_%d : %s\n" (tab 4) counter typename;
+      fprintf outx "%s__field_%d : %s\n" (tab 4) counter typename;
       step_fields rest (counter+1)
   in
 
   let arg_n   i t = fprintf outx ", arg_%d : %s " i t in
-  let field_n i _ = fprintf outx "%sself.field_%d = arg_%d\n" (tab 8) i i in
+  let field_n i _ = fprintf outx "%sself.__field_%d = arg_%d\n" (tab 8) i i in
   
   (* write TYPE informations  *)
   step_fields product 0;
@@ -66,6 +66,14 @@ let init outx product =
   if List.length product = 0 then fprintf outx "%s pass\n" (tab 8);
 
   flush outx
+
+
+let deconstructor outx product =
+  let yield i _ =
+    fprintf outx "%syield self.__field_%d\n" (tab 8) i
+  in
+  fprintf outx "%sdef __iter__(self):\n" (tab 4);
+  List.iteri yield product
 
 
 (* =============================================== *)
@@ -84,7 +92,9 @@ let rec write_sub_classes outx parent constructors =
     flush outx
 
 and write_sub_class outx parent name product =
-  pclass outx ~extends:parent name; init outx product
+  pclass outx ~extends:parent name;
+  init outx product;
+  deconstructor outx product
 
 
 (* =============================================== *)
