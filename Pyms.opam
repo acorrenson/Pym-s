@@ -13,5 +13,5 @@ license: "MIT"
 homepage: "https://github.com/jdrprod/Pym-s"
 bug-reports: "https://github.com/jdrprod/Pym-s/issues"
 dev-repo: "git+https://github.com/jdrprod/Pym-s.git"
-depends: [ "ocaml" "ocamlfind" "dune"]
+depends: [ "ocaml" "dune"]
 build: ["dune" "build" "-p" "Pyms"]
