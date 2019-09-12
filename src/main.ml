@@ -4,6 +4,7 @@
 (* ========================= *)
 
 open Ast_processor
+open Ast_checker
 open Printf
 open Sys
 open Filename
@@ -25,6 +26,7 @@ let print_position outx lexbuf =
 let parse_with_error outx lexbuf =
   try 
     let ast = Parser.main Lexer.token lexbuf in
+    check_types ast;
     write_classes outx ast; flush stdout
   with
     | Parsing.Parse_error ->
