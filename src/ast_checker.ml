@@ -43,9 +43,6 @@ let available_types typedef_list =
       exit 1
     | Typedef (name, _) ->
       name::types
-    | Constructor (_, _) ->
-      fprintf stderr "DEV ERRROR - constructors are'nt types\n";
-      exit 1
   in
   List.fold_right add_new_type typedef_list [ "int"; "float"; "string"; "char" ]
 
@@ -66,9 +63,6 @@ let check_type_product product types =
 let check_constructor constructor types =
   match constructor with
   | Constructor(_, product) -> check_type_product product types
-  | Typedef (_, _) ->
-    fprintf stderr "DEV ERRROR - typedefs are'nt constructors\n";
-    exit 1
 
 
 (** check all types in a list of type definitions *)
@@ -78,8 +72,4 @@ let check_types typedef_list =
     match x with
     | Typedef (_, constructors) -> 
       List.iter (fun c -> check_constructor c types) constructors
-    | Constructor (_, _) ->
-      fprintf stderr "DEV ERRROR - constructors are'nt types\n";
-      exit 1
-
   ) typedef_list
