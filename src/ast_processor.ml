@@ -89,12 +89,14 @@ let write_main_class outx name =
 
 
 (** Convert typedef to python code *)
-let write_classes outx typedef =
-  match typedef with
-  | Typedef (name, constructors) ->
-    write_main_class outx name;
-    fprintf outx "\n";
-    write_sub_classes outx name constructors;
-    flush outx
-  | _ ->
-    failwith "ERROR - CLASS ARE CREATED ONLY FROM TYPEDEF"
+let write_classes outx typedef_list =
+  List.iter (fun typedef -> 
+    match typedef with
+    | Typedef (name, constructors) ->
+      write_main_class outx name;
+      fprintf outx "\n";
+      write_sub_classes outx name constructors;
+      flush outx
+    | _ ->
+      failwith "ERROR - CLASS ARE CREATED ONLY FROM TYPEDEF"
+  ) typedef_list
