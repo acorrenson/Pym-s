@@ -2,9 +2,9 @@
 
 Python with a sweet functionnal taste
 
-Pyms is an Ocaml type definition to python transpiler. It produces clean and reliable python modules from OCaml-like type definitions. Pym-s is mainly designed to make symbolic manipulations easier and safer in python3.
+Pyms is a transpiler. It produces clean and reliable python modules from OCaml-like type definitions. Pym-s is mainly designed to make symbolic manipulations easier and safer in python3.
 
-Python modules generated with Pym-s are annoted according to the [PEP 484](https://www.python.org/dev/peps/pep-0484/)making them well suited for use with modern linters or type checkers such as [pyre](https://pyre-check.org/). Future versions of Pym-s will also include an option to generate dynamic type assertions.
+Python modules generated with Pym-s are annotated according to the [PEP 484](https://www.python.org/dev/peps/pep-0484/) making them well suited for use with modern linters or type checkers such as [pyre](https://pyre-check.org/). Future versions of Pym-s will also include an option to generate dynamic type verification.
 
 **Example** :
 
