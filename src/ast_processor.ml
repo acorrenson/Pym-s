@@ -1,7 +1,22 @@
-(* ========================= *)
-(* AST PROCESSOR FOR PYM-S   *)
-(* AUTHOR : ARTHUR CORRENSON *)
-(* ========================= *)
+(**************************************************************************)
+(*                                                                        *)
+(*         _____                                                          *)
+(*        |  __ \                                                         *)
+(*        | |__) |   _ _ __ ___ ______ ___                                *)
+(*        |  ___/ | | | '_ ` _ \______/ __|                               *)
+(*        | |   | |_| | | | | | |     \__ \                               *)
+(*        |_|    \__, |_| |_| |_|     |___/                               *)
+(*                __/ |                                                   *)
+(*               |___/                                                    *)
+(*                                                                        *)
+(*  Author : Arthur Correnson                                             *)
+(*  Email  : arthur.correnson@gmail.com                                   *)
+(*                                                                        *)
+(*  Copyright 2019                                                        *)
+(*  Arthur Correnson                                                      *)
+(*  This file is part of the Pym-s project and is distributed             *)
+(*  under the terms of the MIT licence.                                   *)
+(**************************************************************************)
 
 open Printf
 open Ast
@@ -31,12 +46,12 @@ let init outx product =
     match remaining_fields with
     | []  -> ()
     | typename::rest ->
-      fprintf outx "%sfield_%d : %s\n" (tab 4) counter typename;
+      fprintf outx "%s__field_%d : %s\n" (tab 4) counter typename;
       step_fields rest (counter+1)
   in
 
   let arg_n   i t = fprintf outx ", arg_%d : %s " i t in
-  let field_n i _ = fprintf outx "%sself.field_%d = arg_%d\n" (tab 8) i i in
+  let field_n i _ = fprintf outx "%sself.__field_%d = arg_%d\n" (tab 8) i i in
   
   (* write TYPE informations  *)
   step_fields product 0;
@@ -53,6 +68,14 @@ let init outx product =
   flush outx
 
 
+let deconstructor outx product =
+  let yield i _ =
+    fprintf outx "%syield self.__field_%d\n" (tab 8) i
+  in
+  fprintf outx "%sdef __iter__(self):\n" (tab 4);
+  List.iteri yield product
+
+
 (* =============================================== *)
 (* SUBCLASSES GENERATION - OCAML-LIKE CONSTRUCTORS *)
 (* =============================================== *)
@@ -66,11 +89,12 @@ let rec write_sub_classes outx parent constructors =
     write_sub_class outx parent name product;
     fprintf outx "\n";
     write_sub_classes outx parent rest;
-    flush outx 
-  | _ -> failwith "ERROR - SUBCLASSES ARE CREATED ONLY FROM CUSTOM CONSTRUCTORS"
+    flush outx
 
 and write_sub_class outx parent name product =
-  pclass outx ~extends:parent name; init outx product
+  pclass outx ~extends:parent name;
+  init outx product;
+  deconstructor outx product
 
 
 (* =============================================== *)
@@ -89,12 +113,12 @@ let write_main_class outx name =
 
 
 (** Convert typedef to python code *)
-let write_classes outx typedef =
-  match typedef with
-  | Typedef (name, constructors) ->
-    write_main_class outx name;
-    fprintf outx "\n";
-    write_sub_classes outx name constructors;
-    flush outx
-  | _ ->
-    failwith "ERROR - CLASS ARE CREATED ONLY FROM TYPEDEF"
+let write_classes outx typedef_list =
+  List.iter (fun typedef -> 
+    match typedef with
+    | Typedef (name, constructors) ->
+      write_main_class outx name;
+      fprintf outx "\n";
+      write_sub_classes outx name constructors;
+      flush outx
+  ) typedef_list

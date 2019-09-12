@@ -18,38 +18,58 @@
 (*  under the terms of the MIT licence.                                   *)
 (**************************************************************************)
 
-{
-  open Parser
-  exception Unkown_token
 
-  let incr_linenum lexbuf = 
-    let pos = lexbuf.Lexing.lex_curr_p in
-    lexbuf.lex_curr_p <- { pos with
-      pos_lnum  = pos.pos_lnum + 1;
-      pos_bol   =  pos.pos_cnum;
-    }
-}
+open Ast
+open Printf
 
-rule token = parse
-| '\n'
-  { incr_linenum lexbuf; token lexbuf }
-| [' ' '\t']
-    { token lexbuf }
-| "int" | "float" | "string" | "char"
-  { TYPENAME (Lexing.lexeme lexbuf) }
-| "typedef"
-  { TYPEDEF }
-| "of"
-  { OF }
-| ['a'-'z' 'A'-'Z' '_']+ ['a'-'z' 'A'-'Z' '-' '_' '0'-'9']*
-  { SYMBOL (Lexing.lexeme lexbuf) }
-| '*'
-  { STAR }
-| '='
-  { EQUAL }
-| '|'
-  { PIPE }
-| eof
-  { EOF }
-| _
-  { raise Unkown_token }
+
+(**
+ * Check whether a typename is included in a list or not.
+ *)
+let includes types type_name =
+  let test t a = (t = type_name) || a in
+  List.fold_right test types false
+
+
+(**
+ * List all avaliable types accross a list of type definitions 
+ * Fails if a type definition is found twice.
+ *)
+let available_types typedef_list =
+  let add_new_type new_type types =
+    match new_type with
+    | Typedef (name, _) when includes types name ->
+      fprintf stderr "ERRROR - type %s declared several times\n" name;
+      exit 1
+    | Typedef (name, _) ->
+      name::types
+  in
+  List.fold_right add_new_type typedef_list [ "int"; "float"; "string"; "char" ]
+
+
+(** Check if each type exists in a product *)
+let check_type_product product types = 
+  let check type_name =
+    if includes types type_name then ()
+    else (
+      fprintf stderr "ERROR - Unknown type %s\n" type_name;
+      exit 1
+    )
+  in
+  List.iter check product
+
+
+(** Check if each type exists in a product *)
+let check_constructor constructor types =
+  match constructor with
+  | Constructor(_, product) -> check_type_product product types
+
+
+(** check all types in a list of type definitions *)
+let check_types typedef_list =
+  let types = available_types typedef_list in
+  List.iter (fun x -> 
+    match x with
+    | Typedef (_, constructors) -> 
+      List.iter (fun c -> check_constructor c types) constructors
+  ) typedef_list
