@@ -1,6 +1,6 @@
 # Pym-s
 
-Python with a sweet functionnal taste
+> Python with a sweet functionnal taste
 
 Pyms is a transpiler. It produces clean and reliable python modules from OCaml-like type definitions. Pym-s is mainly designed to make symbolic manipulations easier and safer in python3.
 
