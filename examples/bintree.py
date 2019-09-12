@@ -1,3 +1,12 @@
+class test:
+    def __init__(self):
+         pass
+
+class Int(test):
+    field_0 : int
+    def __init__(self, arg_0 : int ):
+        self.field_0 = arg_0
+
 class binary_tree:
     def __init__(self):
          pass
