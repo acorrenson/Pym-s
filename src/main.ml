@@ -127,5 +127,6 @@ let _ =
     ("-v", Arg.Unit (fun () -> print_endline "Pyms v0.2"; exit 0),
       "print the current version")
   ] in
-  Arg.parse speclist (fun _ -> ()) "pyms file.pyms [options]";
+  Arg.parse speclist (fun _ -> ()) 
+    "pyms -i \027[3mfile.pyms\027[0m [-o \027[3moutput.py\027[0m] [\027[3m-d\027[0m] [\027[3m-v\027[0m]";
   process_file_with_error !input_file !output_file
