@@ -20,8 +20,3 @@
 
 type constructor =
   | Constructor of string * string list
-(** Represents a custom constructor *)
-
-type typedef =
-  | Typedef of string * constructor list
-(** Represents a type definition *)
